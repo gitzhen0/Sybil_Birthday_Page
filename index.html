@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>好大儿生日快乐</title>
 <style>
     body {
@@ -9,22 +10,26 @@
         padding: 0;
         background: radial-gradient(circle at center, #fff5db, #ffe9b5, #ffd67a);
         height: 100vh;
+        /* 解决部分手机浏览器高度计算问题 */
+        min-height: -webkit-fill-available; 
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         font-family: "Avenir", "Helvetica", sans-serif;
         text-align: center;
-        overflow: hidden;
-        font-size: 17.5px;
+        overflow-x: hidden; /* 防止横向滚动 */
     }
 
     h1 {
-        font-size: 3.2rem;
+        /* 使用 clamp 智能调整字号：最小 2.2rem，最大 3.5rem */
+        font-size: clamp(2.2rem, 6vw, 3.5rem);
         color: #a65a00;
-        margin-top: 12vh; 
+        /* 动态顶部距离：手机上占屏幕 10%，电脑上稍多 */
+        margin-top: 10vh; 
         margin-bottom: 0.4em;
         animation: float 3s ease-in-out infinite;
+        padding: 0 10px;
     }
 
     @keyframes float {
@@ -37,13 +42,15 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-width: 640px;
-        width: 100%;
-        padding: 0 1.1em;
+        width: 95%; /* 手机上占宽一点 */
+        max-width: 640px; /* 电脑上限制最大宽度 */
+        padding: 0 10px;
+        box-sizing: border-box;
     }
 
     .star {
-        font-size: 2.3rem; 
+        /* 星星也自适应大小 */
+        font-size: clamp(2.2rem, 5vw, 3rem);
         color: #ffcc00;
         margin-bottom: -5px; 
         text-shadow: 0 0 10px #fff; 
@@ -57,49 +64,63 @@
     }
 
     .msg {
-        font-size: 1.3rem;
+        /* 正文字号智能调整：手机约 17px，电脑约 22px */
+        font-size: clamp(1.05rem, 3vw, 1.35rem);
         color: #5c3b00;
-        line-height: 1.3; 
+        line-height: 1.4; 
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
 
     .msg p {
-        margin: 3px 0; 
+        margin: 2px 0; 
         width: fit-content;
-        padding: 0 8px;
+        /* 增加最大宽度限制，防止手机上一行字太长撑破屏幕 */
+        max-width: 98%; 
+        padding: 0 4px;
         border-radius: 4px;
+        /* 稍微挤压一点字间距，让手机显示更精致 */
+        letter-spacing: -0.02em; 
     }
 
     /* --- 圣诞树形状微调 --- */
-    .msg p:nth-child(1) { margin-top: 0; font-weight: bold; font-size: 1.4rem; } /* Sybil */
-    .msg p:nth-child(2) { transform: scale(0.95); } /* 生日快乐 */
+    .msg p:nth-child(1) { margin-top: 0; font-weight: bold; font-size: 1.2em; } /* Sybil 稍微大点 */
+    .msg p:nth-child(2) { transform: scale(0.95); } 
     
     .separator {
         color: #a65a00;
-        font-size: 12px;
-        margin: 6px 0 !important; 
+        font-size: 0.7em; /* 分隔符小一点 */
+        margin: 5px 0 !important; 
         opacity: 0.6;
     }
 
     .btn {
-        margin-top: 30px; 
-        padding: 14px 36px;
+        margin-top: 5vh; /* 按钮距离文字动态距离 */
+        padding: 12px 32px;
         background: #ff9f1c;
         color: #fff;
         border-radius: 30px;
         cursor: pointer;
-        font-size: 1.25rem;
+        font-size: clamp(1rem, 4vw, 1.25rem); /* 按钮文字也自适应 */
         border: none;
         transition: 0.3s;
         box-shadow: 0 4px 14px rgba(255,159,28,0.4);
+        /* 禁止手机上点击出现高亮背景块 */
+        -webkit-tap-highlight-color: transparent;
     }
 
     .btn:hover {
         background: #ffb74a;
         transform: scale(1.05);
+    }
+
+    /* 针对小屏幕手机的微调 (iPhone SE等) */
+    @media (max-height: 700px) {
+        h1 { margin-top: 5vh; }
+        .btn { margin-top: 20px; padding: 10px 24px; }
     }
 
     .particle {
@@ -117,11 +138,12 @@
 
     .pointer-box {
         position: fixed;
-        top: 6px;
+        top: 10px; /* 手机上稍微靠下一点 */
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
         z-index: 99999;
+        width: 80%; /* 防止提示框太宽 */
         animation: pop 0.6s ease-out;
     }
 
@@ -145,14 +167,14 @@
     }
 
     .pointer-text-big {
-        font-size: 1.85rem;
+        font-size: 1.8rem;
         font-weight: bold;
         color: #8e4400;
         text-shadow: 0 0 6px rgba(255,140,0,0.35);
     }
 
     .pointer-text-small {
-        font-size: 0.55rem;
+        font-size: 0.75rem;
         margin-top: 4px;
         color: #5c3b00;
     }
@@ -171,25 +193,23 @@
         <p>逛半天也找不到啥钟意的</p>
         <p>想写个贺卡, 人味太足, 觉得别扭</p>
         
-        <p>||</p>
+        <p class="separator">|||</p>
         
         <p>再加上过两周我还想着去你那边蹭吃蹭喝</p>
         <p>所以必须提前做点“公关”</p>
         
-        <p>||</p>
+        <p class="separator">|||</p>
         
         <p>想了半天，决定送你个</p>
         <p>——只能送给你的礼物（相比另外几个傻大儿）～</p>
         
-        <p>||</p>
+        <p class="separator">|||</p>
         
         <p>希望你一年能比一年轻松</p>
-        <p>遇到的开心能停在你这儿久一点 <span style="font-size: 0.75em; opacity: 0.75; margin-left: 4px;">(最后一句是 gpt 写的)</span></p>
+        <p>遇到的开心能停在你这儿久一点 <span style="font-size: 0.8em; opacity: 0.75;">(最后一句是 gpt 写的)</span></p>
         
-
-        <p>||</p>
-        <p>||</p>
-        <p>||</p>
+        <p class="separator">|</p>
+        <p class="separator">|</p>
     </div>
 </div>
 
