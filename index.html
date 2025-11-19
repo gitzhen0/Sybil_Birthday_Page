@@ -1,320 +1,271 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>好大儿生日快乐</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: radial-gradient(circle at center, #fff5db, #ffe9b5, #ffd67a);
-            height: 100vh;
-            /* 解决部分手机浏览器高度计算问题 */
-            min-height: -webkit-fill-available;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            font-family: "Avenir", "Helvetica", sans-serif;
-            text-align: center;
-            overflow-x: hidden;
-            /* 防止横向滚动 */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>好大儿生日快乐</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle at center, #fff5db, #ffe9b5, #ffd67a);
+        height: 100vh;
+        min-height: -webkit-fill-available; 
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: "Avenir", "Helvetica", sans-serif;
+        text-align: center;
+        overflow-x: hidden;
+    }
 
-        h1 {
-            /* 使用 clamp 智能调整字号：最小 2.2rem，最大 3.5rem */
-            font-size: clamp(2.2rem, 6vw, 3.5rem);
-            color: #a65a00;
-            /* 动态顶部距离：手机上占屏幕 10%，电脑上稍多 */
-            margin-top: 10vh;
-            margin-bottom: 0.4em;
-            animation: float 3s ease-in-out infinite;
-            padding: 0 10px;
-        }
+    h1 {
+        font-size: clamp(2.2rem, 6vw, 3.5rem);
+        color: #a65a00;
+        margin-top: 10vh; 
+        margin-bottom: 0.4em;
+        animation: float 3s ease-in-out infinite;
+        padding: 0 10px;
+    }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+    }
 
-            50% {
-                transform: translateY(-8px);
-            }
+    .msg-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 95%;
+        max-width: 640px;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
 
-            100% {
-                transform: translateY(0px);
-            }
-        }
+    .star {
+        /* 调小了一点，显得更精致 */
+        font-size: clamp(1.5rem, 4vw, 2.2rem); 
+        color: #ffcc00;
+        margin-bottom: -5px; 
+        text-shadow: 0 0 10px #fff; 
+        animation: pulse 1.5s infinite alternate;
+        z-index: 10; 
+    }
 
-        .msg-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 95%;
-            /* 手机上占宽一点 */
-            max-width: 640px;
-            /* 电脑上限制最大宽度 */
-            padding: 0 10px;
-            box-sizing: border-box;
-        }
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(1.15); opacity: 0.85; }
+    }
 
-        .star {
-            /* 星星也自适应大小 */
-            /* font-size: clamp(2.2rem, 5vw, 3rem); */
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            color: #ffcc00;
-            margin-bottom: -5px;
-            text-shadow: 0 0 10px #fff;
-            animation: pulse 1.5s infinite alternate;
-            z-index: 10;
-        }
+    .msg {
+        font-size: clamp(1.05rem, 3vw, 1.35rem);
+        color: #5c3b00;
+        line-height: 1.4; 
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
+    .msg p {
+        margin: 2px 0; 
+        width: fit-content;
+        max-width: 98%; 
+        padding: 0 4px;
+        border-radius: 4px;
+        letter-spacing: -0.02em; 
+    }
 
-            100% {
-                transform: scale(1.15);
-                opacity: 0.85;
-            }
-        }
+    /* --- 圣诞树形状微调 --- */
+    .msg p:nth-child(1) { margin-top: 0; font-weight: bold; font-size: 1.2em; } /* Sybil */
+    .msg p:nth-child(2) { transform: scale(0.95); } 
+    
+    .separator {
+        color: #a65a00;
+        font-size: 0.7em; 
+        margin: 5px 0 !important; 
+        opacity: 0.6;
+    }
 
-        .msg {
-            /* 正文字号智能调整：手机约 17px，电脑约 22px */
-            font-size: clamp(1.05rem, 3vw, 1.35rem);
-            color: #5c3b00;
-            line-height: 1.4;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
+    /* --- 建议1：实体小树干 --- */
+    .tree-trunk {
+        width: 16px;       
+        height: 26px;      
+        background: #8e4400; 
+        border-radius: 2px;
+        margin-top: 2px;
+        opacity: 0.85;
+    }
 
-        .msg p {
-            margin: 2px 0;
-            width: fit-content;
-            /* 增加最大宽度限制，防止手机上一行字太长撑破屏幕 */
-            max-width: 98%;
-            padding: 0 4px;
-            border-radius: 4px;
-            /* 稍微挤压一点字间距，让手机显示更精致 */
-            letter-spacing: -0.02em;
-        }
+    .btn {
+        margin-top: 5vh; 
+        padding: 12px 32px;
+        background: #ff9f1c;
+        color: #fff;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: clamp(1rem, 4vw, 1.25rem);
+        border: none;
+        transition: 0.3s;
+        box-shadow: 0 4px 14px rgba(255,159,28,0.4);
+        -webkit-tap-highlight-color: transparent;
+    }
 
-        /* --- 圣诞树形状微调 --- */
-        .msg p:nth-child(1) {
-            margin-top: 0;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
+    .btn:hover {
+        background: #ffb74a;
+        transform: scale(1.05);
+    }
 
-        /* Sybil 稍微大点 */
-        .msg p:nth-child(2) {
-            transform: scale(0.95);
-        }
+    .particle {
+        position: fixed;
+        top: -20px;
+        font-size: 2rem;
+        animation: fall linear forwards;
+        pointer-events: none;
+        z-index: 9999;
+    }
 
-        .separator {
-            color: #a65a00;
-            font-size: 0.7em;
-            /* 分隔符小一点 */
-            margin: 5px 0 !important;
-            opacity: 0.6;
-        }
+    @keyframes fall {
+        to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
 
-        .btn {
-            margin-top: 5vh;
-            /* 按钮距离文字动态距离 */
-            padding: 12px 32px;
-            background: #ff9f1c;
-            color: #fff;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: clamp(1rem, 4vw, 1.25rem);
-            /* 按钮文字也自适应 */
-            border: none;
-            transition: 0.3s;
-            box-shadow: 0 4px 14px rgba(255, 159, 28, 0.4);
-            /* 禁止手机上点击出现高亮背景块 */
-            -webkit-tap-highlight-color: transparent;
-        }
+    /* --- 建议3：礼品卡弹窗样式 --- */
+    .gift-card-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5); /* 半透明背景 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        animation: fadeIn 0.3s;
+        backdrop-filter: blur(3px); /* 让背景模糊一点更高级 */
+    }
 
-        .btn:hover {
-            background: #ffb74a;
-            transform: scale(1.05);
-        }
+    .gift-card {
+        background: #fff;
+        padding: 30px 20px;
+        border-radius: 16px;
+        text-align: center;
+        width: 75%;
+        max-width: 300px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹性动画 */
+        border: 4px solid #ff9f1c;
+        position: relative;
+    }
 
-        /* 针对小屏幕手机的微调 (iPhone SE等) */
-        @media (max-height: 700px) {
-            h1 {
-                margin-top: 5vh;
-            }
+    .gift-emoji {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+        animation: bounce 2s infinite;
+    }
 
-            .btn {
-                margin-top: 20px;
-                padding: 10px 24px;
-            }
-        }
+    .gift-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #d35400;
+        margin-bottom: 8px;
+    }
 
-        .particle {
-            position: fixed;
-            top: -20px;
-            font-size: 2rem;
-            animation: fall linear forwards;
-            pointer-events: none;
-            z-index: 9999;
-        }
+    .gift-subtitle {
+        font-size: 0.9rem;
+        color: #7f8c8d;
+        line-height: 1.5;
+    }
 
-        @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
+    .close-hint {
+        margin-top: 20px;
+        font-size: 0.75rem;
+        color: #bbb;
+    }
 
-        .pointer-box {
-            position: fixed;
-            top: 10px;
-            /* 手机上稍微靠下一点 */
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 99999;
-            width: 80%;
-            /* 防止提示框太宽 */
-            animation: pop 0.6s ease-out;
-        }
-
-        @keyframes pop {
-            0% {
-                transform: translateX(-50%) scale(0.2);
-                opacity: 0;
-            }
-
-            60% {
-                transform: translateX(-50%) scale(1.15);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateX(-50%) scale(1);
-            }
-        }
-
-        .pointer-arrow {
-            font-size: 2.3rem;
-            color: #c0392b;
-            line-height: 1;
-            margin-bottom: -2px;
-            animation: gentleUp 1.4s infinite;
-        }
-
-        @keyframes gentleUp {
-
-            0%,
-            100% {
-                transform: translateY(0);
-                opacity: 0.95;
-            }
-
-            50% {
-                transform: translateY(-8px);
-                opacity: 1;
-            }
-        }
-
-        .pointer-text-big {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #8e4400;
-            text-shadow: 0 0 6px rgba(255, 140, 0, 0.35);
-        }
-
-        .pointer-text-small {
-            font-size: 0.75rem;
-            margin-top: 4px;
-            color: #5c3b00;
-        }
-    </style>
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes zoomIn { from { transform: scale(0.5); } to { transform: scale(1); } }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+</style>
 </head>
-
 <body>
 
-    <h1> 🎂 好大儿，生日快乐！</h1>
+<h1> 好大儿，生日快乐！</h1>
 
-    <div class="msg-container">
-        <div class="star">⭐</div>
-        <div class="msg">
-            <p>Sybil,</p>
-            <p>生日快乐呀!</p>
-            <p>好久没送你生日礼物了</p>
-            <p>逛半天也找不到啥钟意的</p>
-            <p>想写个贺卡, 人味太足, 觉得别扭</p>
-
-            <p>|||</p>
-
-            <p>再加上过两周我还想着去你那边蹭吃蹭喝</p>
-            <p>所以必须提前做点“公关”</p>
-
-            <p>|||</p>
-
-            <p>想了半天，决定送你个</p>
-            <p>——只能送给你的礼物（相比另外几个傻大儿）～</p>
-
-
-            <p>|||</p>
-
-            <p>希望你一年能比一年轻松</p>
-            <p>遇到的开心能停在你这儿久一点 <span style="font-size: 0.5em; opacity: 0.75;">(最后一句是 gpt 写的)</span></p>
-
-
-            <p>|||</p>
-            <p>|||</p>
-            <p>|||</p>
-        </div>
+<div class="msg-container">
+    <div class="star">💫</div>
+    <div class="msg">
+        <p>Sybil,</p>
+        <p>生日快乐呀!</p>
+        <p>好久没送你生日礼物了</p>
+        <p>逛半天也找不到啥钟意的</p>
+        <p>想写个贺卡, 人味太足, 觉得别扭</p>
+        
+         <p>|||</p>
+        
+        <p>加上过两周我还想着去你那边蹭吃蹭喝</p>
+        <p>所以必须提前做点“公关”</p>
+        
+         <p>|||</p>
+        
+        <p>想了半天，决定送你个 </p>
+        <p>——只能送给你的礼物（相比另外几个傻大儿）～</p>
+        
+         <p>|||</p>
+        
+        <p>希望你一年能比一年轻松</p>
+        <p>遇到的开心能停在你这儿久一点 <span style="font-size: 0.5em; opacity: 0.75;">(最后一句是 gpt 写的)</span></p>
+        
+        <p>|||</p>
+        <p>|||</p>
+        <p>|||</p>
     </div>
+</div>
 
-    <button class="btn" onclick="celebrate()">给你来点排面 🎉</button>
+<button class="btn" onclick="celebrate()">给你来点排面 🎉</button>
 
-    <script>
-        function celebrate() {
-            const emojis = ["🎉", "🎈", "✨", "🎂", "🧁", "🍰"];
+<script>
+function celebrate() {
+    // 1. 撒花特效
+    const emojis = ["🎉", "🎈", "✨", "🎂", "🧁", "🍰"];
+    for (let i = 0; i < 40; i++) {
+        let p = document.createElement("div");
+        p.className = "particle";
+        p.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = (3 + Math.random()*3) + "s";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 7000);
+    }
 
-            for (let i = 0; i < 40; i++) {
-                let p = document.createElement("div");
-                p.className = "particle";
-                p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-                p.style.left = Math.random() * 100 + "vw";
-                p.style.animationDuration = (3 + Math.random() * 3) + "s";
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 7000);
-            }
+    // 2. 建议3：弹出礼品卡
+    if (!document.getElementById("giftOverlay")) {
+        let overlay = document.createElement("div");
+        overlay.id = "giftOverlay";
+        overlay.className = "gift-card-overlay";
+        
+        // 点击任意位置关闭弹窗
+        overlay.onclick = function() { 
+            this.style.opacity = 0;
+            setTimeout(() => this.remove(), 300);
+        };
 
-            if (!document.getElementById("pointerBox")) {
-                let box = document.createElement("div");
-                box.id = "pointerBox";
-                box.className = "pointer-box";
-
-                box.innerHTML = `
-            <div class="pointer-arrow">⬆️</div>
-            <div class="pointer-text-big">6 年域名！！！</div>
-            <div class="pointer-text-small">(过会转你, 别问我有什么用 hhh)</div>
+        overlay.innerHTML = `
+            <div class="gift-card">
+                <div class="gift-emoji">🎁</div>
+                <div class="gift-title">6 年域名！！！</div>
+                <div class="gift-subtitle">
+                    (过会转你)<br>
+                    <span style="font-size:12px; color:#aaa; display:block; margin-top:4px;">别问有什么用 hhh</span>
+                </div>
+                <div class="close-hint">点击任意处关闭</div>
+            </div>
         `;
-                document.body.appendChild(box);
-
-                setTimeout(() => {
-                    box.style.opacity = 0;
-                    box.style.transition = "0.8s";
-                    setTimeout(() => box.remove(), 900);
-                }, 6000);
-            }
-        }
-    </script>
+        document.body.appendChild(overlay);
+    }
+}
+</script>
 
 </body>
-
 </html>
