@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>好大儿生日快乐</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(circle at center, #fff5db, #ffe9b5, #ffd67a);
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        font-family: "Avenir", "Helvetica", sans-serif;
+        text-align: center;
+        overflow: hidden;
+        font-size: 17.5px;
+    }
+
+    h1 {
+        font-size: 3.2rem;
+        color: #a65a00;
+        margin-top: 12vh; 
+        margin-bottom: 0.4em;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-8px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .msg-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 640px;
+        width: 100%;
+        padding: 0 1.1em;
+    }
+
+    .star {
+        font-size: 2.3rem; 
+        color: #ffcc00;
+        margin-bottom: -5px; 
+        text-shadow: 0 0 10px #fff; 
+        animation: pulse 1.5s infinite alternate;
+        z-index: 10; 
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        100% { transform: scale(1.15); opacity: 0.85; }
+    }
+
+    .msg {
+        font-size: 1.3rem;
+        color: #5c3b00;
+        line-height: 1.3; 
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .msg p {
+        margin: 3px 0; 
+        width: fit-content;
+        padding: 0 8px;
+        border-radius: 4px;
+    }
+
+    /* --- 圣诞树形状微调 --- */
+    .msg p:nth-child(1) { margin-top: 0; font-weight: bold; font-size: 1.4rem; } /* Sybil */
+    .msg p:nth-child(2) { transform: scale(0.95); } /* 生日快乐 */
+    
+    .separator {
+        color: #a65a00;
+        font-size: 12px;
+        margin: 6px 0 !important; 
+        opacity: 0.6;
+    }
+
+    .btn {
+        margin-top: 30px; 
+        padding: 14px 36px;
+        background: #ff9f1c;
+        color: #fff;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1.25rem;
+        border: none;
+        transition: 0.3s;
+        box-shadow: 0 4px 14px rgba(255,159,28,0.4);
+    }
+
+    .btn:hover {
+        background: #ffb74a;
+        transform: scale(1.05);
+    }
+
+    .particle {
+        position: fixed;
+        top: -20px;
+        font-size: 2rem;
+        animation: fall linear forwards;
+        pointer-events: none;
+        z-index: 9999;
+    }
+
+    @keyframes fall {
+        to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    .pointer-box {
+        position: fixed;
+        top: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 99999;
+        animation: pop 0.6s ease-out;
+    }
+
+    @keyframes pop {
+        0% { transform: translateX(-50%) scale(0.2); opacity: 0; }
+        60% { transform: translateX(-50%) scale(1.15); opacity: 1; }
+        100% { transform: translateX(-50%) scale(1); }
+    }
+
+    .pointer-arrow {
+        font-size: 2.3rem;
+        color: #c0392b;
+        line-height: 1;
+        margin-bottom: -2px;
+        animation: gentleUp 1.4s infinite;
+    }
+
+    @keyframes gentleUp {
+        0%, 100% { transform: translateY(0); opacity: 0.95; }
+        50% { transform: translateY(-8px); opacity: 1; }
+    }
+
+    .pointer-text-big {
+        font-size: 1.85rem;
+        font-weight: bold;
+        color: #8e4400;
+        text-shadow: 0 0 6px rgba(255,140,0,0.35);
+    }
+
+    .pointer-text-small {
+        font-size: 0.55rem;
+        margin-top: 4px;
+        color: #5c3b00;
+    }
+</style>
+</head>
+<body>
+
+<h1> 好大儿，生日快乐！</h1>
+
+<div class="msg-container">
+    <div class="star">⭐</div>
+    <div class="msg">
+        <p>Sybil,</p>
+        <p>生日快乐呀!</p>
+        <p>好久没送你生日礼物了</p>
+        <p>逛半天也找不到啥钟意的</p>
+        <p>想写个贺卡, 人味太足, 觉得别扭</p>
+        
+        <p>||</p>
+        
+        <p>再加上过两周我还想着去你那边蹭吃蹭喝</p>
+        <p>所以必须提前做点“公关”</p>
+        
+        <p>||</p>
+        
+        <p>想了半天，决定送你个</p>
+        <p>——只能送给你的礼物（相比另外几个傻大儿）～</p>
+        
+        <p>||</p>
+        
+        <p>希望你一年能比一年轻松</p>
+        <p>遇到的开心能停在你这儿久一点 <span style="font-size: 0.75em; opacity: 0.75; margin-left: 4px;">(最后一句是 gpt 写的)</span></p>
+        
+
+        <p>||</p>
+        <p>||</p>
+        <p>||</p>
+    </div>
+</div>
+
+<button class="btn" onclick="celebrate()">给你来点排面 🎉</button>
+
+<script>
+function celebrate() {
+    const emojis = ["🎉", "🎈", "✨", "🎂", "🧁", "🍰"];
+
+    for (let i = 0; i < 40; i++) {
+        let p = document.createElement("div");
+        p.className = "particle";
+        p.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = (3 + Math.random()*3) + "s";
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 7000);
+    }
+
+    if (!document.getElementById("pointerBox")) {
+        let box = document.createElement("div");
+        box.id = "pointerBox";
+        box.className = "pointer-box";
+
+        box.innerHTML = `
+            <div class="pointer-arrow">⬆️</div>
+            <div class="pointer-text-big">6 年域名！！！</div>
+            <div class="pointer-text-small">(过会转你)</div>
+        `;
+        document.body.appendChild(box);
+
+        setTimeout(() => {
+            box.style.opacity = 0;
+            box.style.transition = "0.8s";
+            setTimeout(() => box.remove(), 900);
+        }, 6000);
+    }
+}
+</script>
+
+</body>
+</html>
